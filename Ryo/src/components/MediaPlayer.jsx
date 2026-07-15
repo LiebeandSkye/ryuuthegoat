@@ -6,6 +6,8 @@ import {
   Shuffle,
   SkipBack,
   SkipForward,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import songCover from "../assets/ryo/song-cover.jpg";
 import songSrc from "../assets/ryo/song.mp3";
@@ -15,10 +17,15 @@ export default function MediaPlayer() {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [volume, setVolume] = useState(0.1); // Default volume 10%
+  const [prevVolume, setPrevVolume] = useState(0.1);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    // Set initial volume to 10%
+    audio.volume = volume;
 
     const tryPlay = async () => {
       try {
@@ -54,8 +61,60 @@ export default function MediaPlayer() {
     }
   };
 
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const toggleMute = () => {
+    if (volume > 0) {
+      setPrevVolume(volume);
+      setVolume(0);
+      if (audioRef.current) {
+        audioRef.current.volume = 0;
+      }
+    } else {
+      const restoreVolume = prevVolume > 0 ? prevVolume : 0.1;
+      setVolume(restoreVolume);
+      if (audioRef.current) {
+        audioRef.current.volume = restoreVolume;
+      }
+    }
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-2">
+      {/* Volume Controller (Above Player) */}
+      <div className="flex items-center justify-between px-2 text-white/70 text-xs">
+        <span className="font-semibold tracking-wider text-[10px] uppercase opacity-75">Volume</span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label={volume === 0 ? "Unmute" : "Mute"}
+            onClick={toggleMute}
+            className="transition hover:text-white hover:scale-110"
+          >
+            {volume === 0 ? <VolumeX size={12} /> : <Volume2 size={12} />}
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="w-24 h-1 rounded-lg bg-white/20 accent-white cursor-pointer appearance-none outline-none"
+            style={{
+              background: `linear-gradient(to right, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.7) ${volume * 100}%, rgba(255, 255, 255, 0.2) ${volume * 100}%, rgba(255, 255, 255, 0.2) 100%)`
+            }}
+          />
+          <span className="w-8 text-right font-mono text-[10px]">{Math.round(volume * 100)}%</span>
+        </div>
+      </div>
+
       <GlassEffect className="w-full rounded-[24px] px-3.5 py-3">
         <div className="flex w-full items-center gap-3">
           <img
