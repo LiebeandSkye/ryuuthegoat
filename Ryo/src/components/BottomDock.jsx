@@ -24,6 +24,7 @@ const dockIcons = [
   },
   {
     name: "Spotify",
+    url: "https://open.spotify.com/user/31ryu45j3fg6s2x2jtwe2ot6bvwm?si=861c8b34788a4cad",
     node: (
       <div className="w-10 h-10 rounded-full bg-[#1DB954] flex items-center justify-center">
         <SiSpotify size={22} color="#000000" />
@@ -56,6 +57,7 @@ const dockIcons = [
   },
   {
     name: "Discord",
+    url: "https://discord.com/users/712573524111523921",
     node: (
       <div className="w-10 h-10 rounded-full bg-[#5865F2] flex items-center justify-center">
         <SiDiscord size={20} color="#ffffff" />
@@ -72,16 +74,22 @@ export default function BottomDock() {
     >
       <GlassEffect className="rounded-[28px] p-2.5 shadow-2xl">
         <div className="flex items-center justify-center gap-3.5 px-2 overflow-hidden">
-          {dockIcons.map((icon) => (
-            <button
-              key={icon.name}
-              type="button"
-              aria-label={icon.name}
-              className="w-12 h-12 transition-all duration-300 hover:scale-115 cursor-pointer flex items-center justify-center rounded-[14px] hover:bg-white/5 active:scale-95"
-            >
-              {icon.node}
-            </button>
-          ))}
+          {dockIcons.map((icon) => {
+            const Component = icon.url ? "a" : "button";
+            return (
+              <Component
+                key={icon.name}
+                href={icon.url}
+                target={icon.url ? "_blank" : undefined}
+                rel={icon.url ? "noopener noreferrer" : undefined}
+                type={icon.url ? undefined : "button"}
+                aria-label={icon.name}
+                className="w-12 h-12 transition-all duration-300 hover:scale-115 cursor-pointer flex items-center justify-center rounded-[14px] hover:bg-white/5 active:scale-95"
+              >
+                {icon.node}
+              </Component>
+            );
+          })}
         </div>
       </GlassEffect>
     </nav>
