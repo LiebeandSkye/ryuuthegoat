@@ -20,19 +20,20 @@ const icons = [
 export default function Dock() {
   return (
     <nav
-      className="hidden md:block fixed left-6 top-1/2 z-30 -translate-y-1/2"
+      className="fixed z-30 left-1/2 top-3 -translate-x-1/2 md:left-6 md:top-1/2 md:translate-x-0 md:-translate-y-1/2"
       aria-label="Social dock"
     >
-      <GlassEffect className="w-16 flex-col items-center rounded-3xl py-6 hover:rounded-4xl">
-        <div className="flex flex-col items-center gap-6">
+      <GlassEffect className="flex-row items-center rounded-3xl px-3 py-2 gap-0 md:w-16 md:flex-col md:px-0 md:py-6 hover:rounded-4xl">
+        <div className="flex flex-row items-center gap-3 md:flex-col md:gap-6">
           {icons.map(({ key, Icon, label }) => (
             <button
               key={key}
               type="button"
               aria-label={label}
-              className="rounded-full bg-black/70 p-3 text-white transition-transform hover:scale-105"
+              className="rounded-full bg-black/70 p-2.5 md:p-3 text-white transition-transform hover:scale-105 shrink-0"
             >
-              <Icon size={18} strokeWidth={key === "search" ? 2 : undefined} />
+              <Icon size={16} className="md:hidden" strokeWidth={key === "search" ? 2 : undefined} />
+              <Icon size={18} className="hidden md:block" strokeWidth={key === "search" ? 2 : undefined} />
             </button>
           ))}
         </div>
