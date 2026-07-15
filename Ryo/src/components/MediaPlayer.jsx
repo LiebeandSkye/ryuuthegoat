@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import songCover from "../assets/ryo/song-cover.jpg";
 import songSrc from "../assets/ryo/song.mp3";
+import { GlassEffect } from "./ui/liquid-glass";
 
 export default function MediaPlayer() {
   const audioRef = useRef(null);
@@ -54,60 +55,64 @@ export default function MediaPlayer() {
   };
 
   return (
-    <div className="glass-panel-dark fixed bottom-28 right-8 z-20 flex w-64 items-center gap-3 rounded-pill px-3 py-2">
-      <img
-        src={songCover}
-        alt="Album cover"
-        className={`h-12 w-12 shrink-0 rounded-full object-cover animate-spin-slow ${
-          isPlaying ? "" : "paused"
-        }`}
-        draggable={false}
-      />
+    <div className="w-full">
+      <GlassEffect className="w-full rounded-[24px] px-3.5 py-3">
+        <div className="flex w-full items-center gap-3">
+          <img
+            src={songCover}
+            alt="Album cover"
+            className={`h-12 w-12 shrink-0 rounded-full object-cover border border-white/10 animate-spin-slow ${
+              isPlaying ? "" : "paused"
+            }`}
+            draggable={false}
+          />
 
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-medium text-white">
-          NEW GENESIS
+          <div className="min-w-0 flex-1 pl-1">
+            <div className="truncate text-sm font-bold text-white tracking-wide">
+              NEW GENESIS
+            </div>
+            <div className="mt-1.5 flex items-center gap-2.5 text-white/70">
+              <button
+                type="button"
+                aria-label="Shuffle"
+                className="transition hover:text-white hover:scale-110"
+              >
+                <Shuffle size={13} />
+              </button>
+              <button
+                type="button"
+                aria-label="Previous"
+                className="transition hover:text-white hover:scale-110"
+              >
+                <SkipBack size={13} />
+              </button>
+              <button
+                type="button"
+                aria-label={isPlaying ? "Pause" : "Play"}
+                onClick={togglePlay}
+                className="transition hover:text-white hover:scale-110 p-0.5"
+              >
+                {isPlaying ? <Pause size={15} /> : <Play size={15} />}
+              </button>
+              <button
+                type="button"
+                aria-label="Next"
+                className="transition hover:text-white hover:scale-110"
+              >
+                <SkipForward size={13} />
+              </button>
+              <button
+                type="button"
+                aria-label={liked ? "Unlike" : "Like"}
+                onClick={() => setLiked((v) => !v)}
+                className={`transition hover:text-white hover:scale-110 ${liked ? "text-pink-400" : ""}`}
+              >
+                <Heart size={13} fill={liked ? "currentColor" : "none"} />
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="mt-1 flex items-center gap-2 text-white/70">
-          <button
-            type="button"
-            aria-label="Shuffle"
-            className="transition hover:text-white"
-          >
-            <Shuffle size={14} />
-          </button>
-          <button
-            type="button"
-            aria-label="Previous"
-            className="transition hover:text-white"
-          >
-            <SkipBack size={14} />
-          </button>
-          <button
-            type="button"
-            aria-label={isPlaying ? "Pause" : "Play"}
-            onClick={togglePlay}
-            className="transition hover:text-white"
-          >
-            {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-          </button>
-          <button
-            type="button"
-            aria-label="Next"
-            className="transition hover:text-white"
-          >
-            <SkipForward size={14} />
-          </button>
-          <button
-            type="button"
-            aria-label={liked ? "Unlike" : "Like"}
-            onClick={() => setLiked((v) => !v)}
-            className={`transition hover:text-white ${liked ? "text-pink-400" : ""}`}
-          >
-            <Heart size={14} fill={liked ? "currentColor" : "none"} />
-          </button>
-        </div>
-      </div>
+      </GlassEffect>
 
       <audio ref={audioRef} src={songSrc} loop preload="auto" />
     </div>

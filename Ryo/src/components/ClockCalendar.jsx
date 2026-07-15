@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { GlassEffect } from "./ui/liquid-glass";
 
 const TIMEZONE = "Australia/Sydney";
 
@@ -68,28 +69,28 @@ export default function ClockCalendar() {
   const dateLine = `${now.weekday} ${String(now.day).padStart(2, "0")}/${String(now.month).padStart(2, "0")}`;
 
   return (
-    <div className="fixed left-32 top-10 z-20 flex flex-col gap-4 text-white">
-      <div>
-        <div className="font-mono text-5xl font-bold tracking-wider drop-shadow-lg">
+    <div className="flex flex-col gap-6 text-[#141416] items-start">
+      <div className="pl-1">
+        <div className="font-orbitron text-5xl font-extrabold tracking-wider text-[#141416]">
           {now.hour}:{now.minute}
         </div>
-        <div className="mt-1 text-sm font-medium tracking-wide text-white/80">
+        <div className="mt-1 text-sm font-bold tracking-wider text-[#222224]/90 uppercase">
           {dateLine}
         </div>
       </div>
 
-      <div className="glass-panel-dark w-52 rounded-2xl p-4">
-        <div className="mb-2 border-b border-white/15 pb-2 text-center text-sm font-semibold tracking-wide">
+      <div className="w-[210px] bg-[#1e1e1e] text-white rounded-3xl p-4 flex flex-col shadow-2xl border border-white/5">
+        <div className="mb-2 border-b border-white/10 pb-2 text-center text-sm font-bold tracking-wide text-white">
           {monthName}
         </div>
 
-        <div className="mb-1 grid grid-cols-7 gap-1 text-center text-[10px] font-medium text-purple-300/80">
+        <div className="mb-1 grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-white/40">
           {WEEKDAYS.map((d, i) => (
             <span key={`${d}-${i}`}>{d}</span>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-1 text-center text-xs">
+        <div className="grid grid-cols-7 gap-1 text-center text-xs text-white/90">
           {grid.map((day, i) => {
             if (day == null) {
               return <span key={`e-${i}`} className="h-6" />;
@@ -100,8 +101,8 @@ export default function ClockCalendar() {
                 key={day}
                 className={
                   isToday
-                    ? "flex h-6 items-center justify-center rounded-full border border-white/70 font-bold text-white"
-                    : "flex h-6 items-center justify-center text-white/75"
+                    ? "flex h-6 items-center justify-center font-extrabold text-white underline underline-offset-4 decoration-2"
+                    : "flex h-6 items-center justify-center text-white/70 hover:text-white transition-colors"
                 }
               >
                 {day}
@@ -110,8 +111,8 @@ export default function ClockCalendar() {
           })}
         </div>
 
-        <div className="mt-3 h-1 w-full rounded-full bg-white/15">
-          <div className="h-full w-2/5 rounded-full bg-white/35" />
+        <div className="mt-3.5 h-1 w-full rounded-full bg-white/10">
+          <div className="h-full w-2/5 rounded-full bg-white/30" />
         </div>
       </div>
     </div>

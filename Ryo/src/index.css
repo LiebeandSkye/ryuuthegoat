@@ -24,18 +24,22 @@ body {
   color: #fff;
 }
 
+.font-orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+
 .glass-panel {
   background: var(--glass-light, rgba(255, 255, 255, 0.16));
-  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
 .glass-panel-dark {
   background: rgba(15, 15, 20, 0.55);
-  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -54,4 +58,13 @@ body {
 
 .animate-spin-slow.paused {
   animation-play-state: paused;
+}
+
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% -1000%;
+  }
 }

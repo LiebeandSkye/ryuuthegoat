@@ -17,6 +17,7 @@ export default {
       borderRadius: {
         glass: "28px",
         pill: "999px",
+        "4xl": "2rem",
       },
       fontFamily: {
         mono: ["'JetBrains Mono'", "'DSEG7-Classic'", "monospace"],
