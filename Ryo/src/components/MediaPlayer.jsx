@@ -127,8 +127,13 @@ export default function MediaPlayer() {
           />
 
           <div className="min-w-0 flex-1 pl-1">
-            <div className="truncate text-sm font-bold text-white tracking-wide">
-              NEW GENESIS
+            <div className="overflow-hidden whitespace-nowrap mask-marquee">
+              <div className="inline-flex animate-marquee text-sm font-bold text-white tracking-wide">
+                <span className="pr-8">NEW GENESIS</span>
+                <span className="pr-8" aria-hidden="true">
+                  NEW GENESIS
+                </span>
+              </div>
             </div>
             <div className="mt-1.5 flex items-center gap-2.5 text-white/70">
               <button

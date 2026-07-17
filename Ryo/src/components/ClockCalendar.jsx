@@ -69,8 +69,8 @@ export default function ClockCalendar() {
   const dateLine = `${now.weekday} ${String(now.day).padStart(2, "0")}/${String(now.month).padStart(2, "0")}`;
 
   return (
-    <div className="flex flex-col gap-6 text-[#141416] items-start">
-      <div className="pl-1">
+    <div className="flex flex-col gap-6 text-[#141416] items-center md:items-start w-full">
+      <div className="pl-0 md:pl-1 text-center md:text-left">
         <div className="font-orbitron text-5xl font-extrabold tracking-wider text-[#141416]">
           {now.hour}:{now.minute}
         </div>

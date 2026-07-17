@@ -13,60 +13,63 @@ function AppBadge({ bg, ring, textColor, label }) {
   );
 }
 
-const dockIcons = [
-  {
-    name: "Start",
-    node: (
-      <div className="w-10 h-10 rounded-[11px] bg-[#0078d4] flex items-center justify-center">
-        <FaWindows size={19} color="#ffffff" />
-      </div>
-    ),
-  },
-  {
-    name: "Spotify",
-    url: "https://open.spotify.com/user/31ryu45j3fg6s2x2jtwe2ot6bvwm?si=861c8b34788a4cad",
-    node: (
-      <div className="w-10 h-10 rounded-full bg-[#1DB954] flex items-center justify-center">
-        <SiSpotify size={22} color="#000000" />
-      </div>
-    ),
-  },
-  {
-    name: "Photoshop",
-    node: (
-      <div className="w-10 h-10">
-        <AppBadge bg="#001e36" ring="#31a8ff" textColor="#31a8ff" label="Ps" />
-      </div>
-    ),
-  },
-  {
-    name: "Chrome",
-    node: (
-      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-        <FaChrome size={22} color="#4285F4" />
-      </div>
-    ),
-  },
-  {
-    name: "AfterEffects",
-    node: (
-      <div className="w-10 h-10">
-        <AppBadge bg="#00005b" ring="#9999ff" textColor="#9999ff" label="Ae" />
-      </div>
-    ),
-  },
-  {
-    name: "Discord",
-    url: "https://discord.com/users/712573524111523921",
-    node: (
-      <div className="w-10 h-10 rounded-full bg-[#5865F2] flex items-center justify-center">
-        <SiDiscord size={20} color="#ffffff" />
-      </div>
-    ),
-  },
-];
+export default function BottomDock({ showMain = true, onToggleMain }) {
+  const dockIcons = [
+    {
+      name: "Start",
+      onClick: onToggleMain,
+      active: !showMain,
+      node: (
+        <div className="w-10 h-10 rounded-[11px] bg-[#0078d4] flex items-center justify-center">
+          <FaWindows size={19} color="#ffffff" />
+        </div>
+      ),
+    },
+    {
+      name: "Spotify",
+      url: "https://open.spotify.com/user/31ryu45j3fg6s2x2jtwe2ot6bvwm?si=861c8b34788a4cad",
+      node: (
+        <div className="w-10 h-10 rounded-full bg-[#1DB954] flex items-center justify-center">
+          <SiSpotify size={22} color="#000000" />
+        </div>
+      ),
+    },
+    {
+      name: "Photoshop",
+      node: (
+        <div className="w-10 h-10">
+          <AppBadge bg="#001e36" ring="#31a8ff" textColor="#31a8ff" label="Ps" />
+        </div>
+      ),
+    },
+    {
+      name: "Chrome",
+      url: "https://www.google.com",
+      node: (
+        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+          <FaChrome size={22} color="#4285F4" />
+        </div>
+      ),
+    },
+    {
+      name: "AfterEffects",
+      node: (
+        <div className="w-10 h-10">
+          <AppBadge bg="#00005b" ring="#9999ff" textColor="#9999ff" label="Ae" />
+        </div>
+      ),
+    },
+    {
+      name: "Discord",
+      url: "https://discord.com/users/712573524111523921",
+      node: (
+        <div className="w-10 h-10 rounded-full bg-[#5865F2] flex items-center justify-center">
+          <SiDiscord size={20} color="#ffffff" />
+        </div>
+      ),
+    },
+  ];
 
-export default function BottomDock() {
   return (
     <nav
       className="fixed bottom-6 left-1/2 z-30 -translate-x-1/2"
@@ -83,8 +86,18 @@ export default function BottomDock() {
                 target={icon.url ? "_blank" : undefined}
                 rel={icon.url ? "noopener noreferrer" : undefined}
                 type={icon.url ? undefined : "button"}
-                aria-label={icon.name}
-                className="w-12 h-12 transition-all duration-300 hover:scale-115 cursor-pointer flex items-center justify-center rounded-[14px] hover:bg-white/5 active:scale-95"
+                onClick={icon.onClick}
+                aria-label={
+                  icon.name === "Start"
+                    ? showMain
+                      ? "Hide main panel"
+                      : "Show main panel"
+                    : icon.name
+                }
+                aria-pressed={icon.name === "Start" ? !showMain : undefined}
+                className={`w-12 h-12 transition-all duration-300 hover:scale-115 cursor-pointer flex items-center justify-center rounded-[14px] hover:bg-white/5 active:scale-95 ${
+                  icon.active ? "bg-white/15 ring-1 ring-white/25" : ""
+                }`}
               >
                 {icon.node}
               </Component>
