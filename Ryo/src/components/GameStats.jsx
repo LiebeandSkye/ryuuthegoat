@@ -4,7 +4,7 @@ import yeShunguangIcon from "../assets/zenless/ye-shunguang.jpg";
 import yixuanIcon from "../assets/zenless/yixuan.jpg";
 
 const GENSHIN_CHARACTERS = [
-    { name: "Clorinde", icon: clorindeIcon, rank: "top 6%", build: "C3R1" },
+    { name: "Clorinde", icon: clorindeIcon, rank: "top 6%", build: "C4R1" },
     { name: "Mavuika", icon: mavuikaIcon, rank: "top 13%", build: "C3R1" },
 ];
 
